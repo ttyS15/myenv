@@ -205,7 +205,7 @@ let g:SrcExpl_pluginList = [
 let g:SrcExpl_searchLocalDef = 1
                                                                              
 " Do not let the Source Explorer update the tags file when opening          
-let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_isUpdateTags = 1
                                                                              
 " Use program 'ctags' with argument '--sort=foldcase -R' to create or       
 " update a tags file                                                        
@@ -228,3 +228,10 @@ nmap <F8> :TrinityToggleAll<CR>
 " Show buffers list
 nmap <F2> :BufExplorer<CR>
 
+
+"
+" Taglist
+"
+
+let g:Tlist_Ctags_Cmd = "ctags"
+let g:Tlist_Inc_Winwidth = 1
