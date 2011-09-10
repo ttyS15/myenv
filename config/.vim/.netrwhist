@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/home/axeman/Sandbox/rutube/site/trunk/lib/VideoImport'
-let g:netrw_dirhist_2='/home/axeman/Sandbox/FileCluster/trunk/tests'
-let g:netrw_dirhist_3='/home/axeman/Sandbox/rutube/site/trunk/share/db/rutube/releases'
-let g:netrw_dirhist_4='/home/axeman/Sandbox/rutube/site/trunk/lib'
