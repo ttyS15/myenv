@@ -29,7 +29,7 @@ set ignorecase
 syntax on
 
 " color scheme
-colo desert
+colo wombat256
 " use visual bell instead of beeping
 set vb
 " incremental search
