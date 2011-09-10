@@ -24,12 +24,21 @@ set formatoptions+=tcq         " basic formatting of text and comments
 set matchpairs+=<:>            " match, to be used with % 
 set ignorecase
 
+" folding
+set foldmethod=marker
+set foldcolumn=1
+" fold selection
+nmap <F3> 0v/{<CR>%zf
+
 " syntax highlighting
 " set bg=light
 syntax on
 
+" 256 colors
+set t_Co=256
+
 " color scheme
-colo wombat256
+colo desert256
 " use visual bell instead of beeping
 set vb
 " incremental search
@@ -163,10 +172,8 @@ let perl_include_pod = 1
 let perl_extended_vars = 1
 
 " folding
-"let perl_fold=1
-"let perl_fold_blocks=1
-"set foldmethod=marker
-"nmap <F2> 0v/{<CR>%zf
+let perl_fold=1
+let perl_fold_blocks=1
 
 " run srcipt from Vim pressing F5
 map <silent> <F5> :!perl ./%<CR>
