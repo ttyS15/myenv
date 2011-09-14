@@ -27,6 +27,7 @@ set ignorecase
 " folding
 set foldmethod=marker
 set foldcolumn=1
+set foldlevel=1
 " fold selection
 nmap <F3> 0v/{<CR>%zf
 
