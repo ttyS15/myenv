@@ -4,8 +4,9 @@ let g:Perl_MapLeader=","
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set ls=2
 
-filetype on                    " enable filetype detection
+filetype on                " enable filetype detection
 filetype plugin on
+filetype plugin indent on  " LaTeX support
 
 set fileencodings=utf-8,koi8-r
 
@@ -14,15 +15,21 @@ set backspace=indent,eol,start " backspace for dummys
 set showmatch                  " show matching brackets/parenthesis
 set wildmode=list:longest,full " comand <Tab> completion, list matches and
                                "   complete the longest common part, then,
-			       "   cycle through the matches
+							   "   cycle through the matches
 set showmode                   " display the current mode
 set wrap                       " wrap long lines
 set autoindent                 " indent at the same level of the previous line
 set shiftwidth=4               " use indents of 4 spaces
+set tabstop=4
+set softtabstop=4
 set textwidth=80               " the text width
 set formatoptions+=tcq         " basic formatting of text and comments
 set matchpairs+=<:>            " match, to be used with % 
-set ignorecase
+set incsearch                  " incremental search
+
+" paste mode - this will avoid unexpected effects when you
+" cut or copy some text from one window and paste it in Vim.
+set pastetoggle=<F11>
 
 " folding
 set foldmethod=marker
@@ -40,6 +47,9 @@ set t_Co=256
 
 " color scheme
 colo desert256
+
+set gfn=DejaVu\ Sans\ Mono\ 10
+
 " use visual bell instead of beeping
 set vb
 " incremental search
@@ -48,30 +58,20 @@ set incsearch
 set go-=T
 set go-=m
 
-set gfn=DejaVu\ Sans\ Mono\ 10
-
 "
 " Perl
 "
 
-" autoindent
-autocmd FileType perl set autoindent|set smartindent
-
-" 4 space tabs
-autocmd FileType perl set tabstop=4|set shiftwidth=4|set softtabstop=4
-
-" show matching brackets
-autocmd FileType perl set showmatch
-
-" show line numbers
-autocmd FileType perl set number
+autocmd FileType perl set autoindent|set smartindent " autoindent
+autocmd FileType perl set tabstop=4|set shiftwidth=4|set softtabstop=4 " 4 space tabs
+autocmd FileType perl set showmatch " show matching brackets
+autocmd FileType perl set number    " show line numbers
+autocmd FileType perl set autowrite
+autocmd FileType perl set expandtab " spaces as tab
 
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
-autocmd FileType perl set autowrite
-" replace tab with spaces
-autocmd FileType perl set expandtab
 
 "
 " C/C++/CUDA
@@ -160,8 +160,8 @@ vmap <tab> >gv
 vmap <s-tab> <gv
 
 " make tab in normal mode ident code
-"nmap <tab> I<tab><esc>
-"nmap <s-tab> ^i<bs><esc>
+nmap <tab> I<tab><esc>
+nmap <s-tab> ^i<bs><esc>
 
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
