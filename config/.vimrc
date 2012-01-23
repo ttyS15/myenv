@@ -46,7 +46,7 @@ syntax on
 set t_Co=256
 
 " color scheme
-colo desert256
+colo wombat256
 
 set gfn=DejaVu\ Sans\ Mono\ 10
 
@@ -89,6 +89,11 @@ autocmd FileType python set autoindent|set smartindent
 
 "Подсвечиваем все что можно подсвечивать
 autocmd FileType python let python_highlight_all = 1
+autocmd FileType python let b:did_pyflakes_plugin = 0 
+
+" PyLint
+autocmd FileType python compiler pylint
+
 
 "
 " C/C++/CUDA
@@ -175,8 +180,7 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
-
-" Для открытия связаннных файлов
+" Для открытия связаннных файлов Django
 let g:last_relative_dir = ''
 nnoremap \1 :call RelatedFile ("models.py")<cr>
 nnoremap \2 :call RelatedFile ("views.py")<cr>
