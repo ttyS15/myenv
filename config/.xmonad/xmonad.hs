@@ -53,21 +53,6 @@ myBorderWidth   = 3
 --
 myModMask       = mod4Mask
 
--- The mask for the numlock key. Numlock status is "masked" from the
--- current modifier status, so the keybindings will work with numlock on or
--- off. You may need to change this on some systems.
---
--- You can find the numlock modifier by running "xmodmap" and looking for a
--- modifier with Num_Lock bound to it:
---
--- > $ xmodmap | grep Num
--- > mod2        Num_Lock (0x4d)
---
--- Set numlockMask = 0 if you don't have a numlock key, or want to treat
--- numlock status separately.
---
-myNumlockMask   = mod2Mask
-
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
 -- workspace name. The number of workspaces is determined by the length
@@ -83,20 +68,6 @@ myWorkspaces    = ["shell","web","ssh","4","5","6","mail","im","full"]
 --
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#00cc00"
-
--- Default offset of drawable screen boundaries from each physical
--- screen. Anything non-zero here will leave a gap of that many pixels
--- on the given edge, on the that screen. A useful gap at top of screen
--- for a menu bar (e.g. 15)
---
--- An example, to set a top gap on monitor 1, and a gap on the bottom of
--- monitor 2, you'd use a list of geometries like so:
---
--- > defaultGaps = [(18,0,0,0),(0,18,0,0)] -- 2 gaps on 2 monitors
---
--- Fields are: top, bottom, left, right.
---
--- myDefaultGaps   = [(0,0,0,0)]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -282,7 +253,7 @@ tabbedLayout = noBorders simpleTabbed
 
 imLayout = withIM (1%3) (roster) chatLayouts
   where
-    roster      = Title "qutIM" `Or` ClassName "Skype" `And` Role "MainWindow"
+    roster      = ClassName "Empathy" `And` Role "contact_list" `Or` Title "alex.manaev - Skype™ (Beta)"
     chatLayouts = Grid ||| Full
 
 fullLayout = noBorders Full
@@ -387,11 +358,9 @@ myConfig = gnomeConfig {
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
-        numlockMask        = myNumlockMask,
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
-        --defaultGaps        = myDefaultGaps,
 
       -- key bindings
         keys               = myKeys,
