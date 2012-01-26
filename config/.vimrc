@@ -20,9 +20,9 @@ set showmode                   " display the current mode
 set wrap                       " wrap long lines
 set autoindent                 " indent at the same level of the previous line
 set shiftwidth=4               " use indents of 4 spaces
+set textwidth=0                " the text width
 set tabstop=4
 set softtabstop=4
-set textwidth=80               " the text width
 set formatoptions+=tcq         " basic formatting of text and comments
 set matchpairs+=<:>            " match, to be used with % 
 set incsearch                  " incremental search
@@ -46,7 +46,7 @@ syntax on
 set t_Co=256
 
 " color scheme
-colo desert256
+colo wombat256
 
 set gfn=DejaVu\ Sans\ Mono\ 10
 
@@ -72,6 +72,28 @@ autocmd FileType perl set expandtab " spaces as tab
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
+
+"
+" Python
+"
+
+"Настройки табов, согласно рекоммендациям PEP-8
+autocmd FileType python set tabstop=4
+autocmd FileType python set shiftwidth=4
+autocmd FileType python set smarttab
+autocmd FileType python set expandtab "Ставим табы пробелами
+autocmd FileType python set softtabstop=4 "4 пробела в табе
+autocmd FileType python set textwidth=80
+autocmd FileType python set number
+autocmd FileType python set autoindent|set smartindent
+
+"Подсвечиваем все что можно подсвечивать
+autocmd FileType python let python_highlight_all = 1
+autocmd FileType python let b:did_pyflakes_plugin = 0 
+
+" PyLint
+autocmd FileType python compiler pylint
+
 
 "
 " C/C++/CUDA
@@ -151,6 +173,48 @@ autocmd FileType tt2html set showmatch
 autocmd FileType tt2html set textwidth=0 
 " dont replace tab with spaces
 autocmd FileType sh set noexpandtab 
+
+"Настройка omnicomletion для Python (а так же для js, html и css)
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" Для открытия связаннных файлов Django
+let g:last_relative_dir = ''
+nnoremap \1 :call RelatedFile ("models.py")<cr>
+nnoremap \2 :call RelatedFile ("views.py")<cr>
+nnoremap \3 :call RelatedFile ("urls.py")<cr>
+nnoremap \4 :call RelatedFile ("admin.py")<cr>
+nnoremap \5 :call RelatedFile ("tests.py")<cr>
+nnoremap \6 :call RelatedFile ( "templates/" )<cr>
+nnoremap \7 :call RelatedFile ( "templatetags/" )<cr>
+nnoremap \8 :call RelatedFile ( "management/" )<cr>
+nnoremap \0 :e settings.py<cr>
+nnoremap \9 :e urls.py<cr>
+
+fun! RelatedFile(file)
+    #This is to check that the directory looks djangoish
+    if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+        exec "edit %:h/" . a:file
+        let g:last_relative_dir = expand("%:h") . '/'
+        return ''
+    endif
+    if g:last_relative_dir != ''
+        exec "edit " . g:last_relative_dir . a:file
+        return ''
+    endif
+    echo "Cant determine where relative file is : " . a:file
+    return ''
+endfun
+
+fun SetAppDir()
+    if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+        let g:last_relative_dir = expand("%:h") . '/'
+        return ''
+    endif
+endfun
+autocmd BufEnter *.py call SetAppDir()
 
 " dont use Q for Ex mode
 map Q :q
