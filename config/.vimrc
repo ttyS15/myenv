@@ -95,6 +95,15 @@ autocmd FileType python let b:did_pyflakes_plugin = 0
 autocmd FileType python compiler pylint
 
 
+"Delete trailing white space, useful for Python ;)
+func! DeleteTrailingWS()  
+  exe "normal mz"         
+  %s/\s\+$//ge
+  exe "normal `z"         
+endfunc
+autocmd FileType python call DeleteTrailingWS()
+
+
 "
 " C/C++/CUDA
 "
