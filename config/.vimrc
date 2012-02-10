@@ -1,5 +1,12 @@
 
-let g:Perl_MapLeader=","
+let g:Perl_MapLeader = ","
+let os = substitute(system('uname'), "\n", "", "")
+
+if os == "FreeBSD" 
+	let ctags_cmd = "exctags"
+else 
+	let ctags_cmd = "ctags" 
+endif
 
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set ls=2
@@ -281,7 +288,7 @@ let g:SrcExpl_isUpdateTags = 1
                                                                              
 " Use program 'ctags' with argument '--sort=foldcase -R' to create or       
 " update a tags file                                                        
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
+let g:SrcExpl_updateTagsCmd = ctags_cmd . " --sort=foldcase -R ."
                                                                              
 " Set "<F12>" key for updating the tags file artificially                   
 let g:SrcExpl_updateTagsKey = "<F12>"
@@ -305,5 +312,5 @@ nmap <F2> :BufExplorer<CR>
 " Taglist
 "
 
-let g:Tlist_Ctags_Cmd = "ctags"
+let g:Tlist_Ctags_Cmd = ctags_cmd
 let g:Tlist_Inc_Winwidth = 1

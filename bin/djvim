@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export PROJECT=`python -c "import os;print os.getcwd()"`
 export DJANGO_SETTINGS_MODULE=settings
