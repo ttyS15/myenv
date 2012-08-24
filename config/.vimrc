@@ -332,3 +332,8 @@ nmap <F2> :BufExplorer<CR>
 
 let g:Tlist_Ctags_Cmd = ctags_cmd
 let g:Tlist_Inc_Winwidth = 1
+
+"
+" Add bundles support
+"
+call pathogen#infect() 
