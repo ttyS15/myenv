@@ -22,7 +22,7 @@ set backspace=indent,eol,start " backspace for dummys
 set showmatch                  " show matching brackets/parenthesis
 set wildmode=list:longest,full " comand <Tab> completion, list matches and
                                "   complete the longest common part, then,
-							   "   cycle through the matches
+			       "   cycle through the matches
 set showmode                   " display the current mode
 set wrap                       " wrap long lines
 set autoindent                 " indent at the same level of the previous line
@@ -63,7 +63,8 @@ set vb
 set incsearch
 " swhith off menu & toolbar
 set go-=T
-set go-=m
+set go+=m
+
 
 "
 " JavaScript

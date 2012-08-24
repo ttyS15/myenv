@@ -40,7 +40,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "gnome-terminal"
+myTerminal      = "mate-terminal"
 
 -- Width of the window border in pixels.
 --
@@ -98,6 +98,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- Refresh windows with xrefresh
     , ((modMask,               xK_x     ), spawn "xrefresh")
 
+    -- Release mouse hang (gnome3 bug workaround)
+    , ((modMask .|. shiftMask, xK_x     ), spawn "xdotool mouseup 1")
+
     -- Move focus to the next window
     , ((modMask,               xK_Tab   ), windows W.focusDown)
 
@@ -138,10 +141,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_b     ), sendMessage ToggleStruts)
 
     -- Lauching Firefox Web Browser
-    , ((modMask .|. shiftMask, xK_b     ), spawn "chromium")
+    , ((modMask .|. shiftMask, xK_f     ), spawn "firefox")
 
     -- Lauching Firefox Web Browser
-    , ((modMask .|. shiftMask, xK_f     ), spawn "firefox")
+    , ((modMask .|. shiftMask, xK_b     ), spawn "chromium")
 
     -- Lauching Opera Web Browser
     , ((modMask .|. shiftMask, xK_o     ), spawn "opera")
@@ -151,9 +154,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Lauching alsamixer
     , ((modMask .|. shiftMask, xK_a     ), spawn "xterm alsamixer")
-
-    -- Lauching wicd-curses
-    , ((modMask .|. shiftMask, xK_n     ), spawn "xterm wicd-curses")
 
     -- Lauching gvim
     , ((modMask .|. shiftMask, xK_g     ), spawn "gvim")
@@ -253,8 +253,11 @@ tabbedLayout = noBorders simpleTabbed
 
 imLayout = withIM (1%3) (roster) chatLayouts
   where
-    roster      = ClassName "Empathy" `And` Role "contact_list" `Or` Title "alex.manaev - Skype™ (Beta)"
-    chatLayouts = Grid ||| Full
+    roster      = Title "qutIM" 
+                  `Or` ( ClassName "Skype" `And` Role "MainWindow" )
+                  `Or` ( ClassName "Empathy"  `And` Role "contact_list" )
+                  `Or` ( ClassName "Pidgin"  `And` Role "buddy_list" )
+    chatLayouts = Grid ||| simpleTabbed
 
 fullLayout = noBorders Full
 
@@ -285,15 +288,18 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
+    , className =? "Navigator"      --> doF (W.shift "web" )
     , className =? "Firefox"        --> doF (W.shift "web" )
     , className =? "Chromium"       --> doF (W.shift "web" )
     , className =? "Qutim"          --> doF (W.shift "im"  )
     , className =? "Skype"          --> doF (W.shift "im"  )
     , className =? "Gajim.py"       --> doF (W.shift "im"  )
     , className =? "Empathy"        --> doF (W.shift "im"  )
+    , className =? "Pidgin"         --> doF (W.shift "im"  )
     , className =? "Mail"           --> doF (W.shift "mail")
     , className =? "Thunderbird"    --> doF (W.shift "mail")
     , className =? "Vlc"            --> doF (W.shift "full")
+    , className =? "Exaile"         --> doF (W.shift "full")
     , isFullscreen                  --> doFullFloat
     ] 
     <+> (xPropManageHook xPropMatches)
