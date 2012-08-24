@@ -66,6 +66,14 @@ set go-=T
 set go-=m
 
 "
+" JavaScript
+"
+
+autocmd FileType javascript set textwidth=80
+autocmd FileType javascript set number
+autocmd FileType javascript set smarttab
+
+"
 " Perl
 "
 
@@ -101,13 +109,13 @@ autocmd FileType python let b:did_pyflakes_plugin = 0
 " PyLint
 autocmd FileType python compiler pylint
 
-
 "Delete trailing white space, useful for Python ;)
 func! DeleteTrailingWS()  
   exe "normal mz"         
   %s/\s\+$//ge
   exe "normal `z"         
 endfunc
+
 autocmd FileType python call DeleteTrailingWS()
 
 
