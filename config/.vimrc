@@ -11,6 +11,11 @@ endif
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set ls=2
 
+"
+" Add bundles support
+"
+call pathogen#infect() 
+
 filetype on                " enable filetype detection
 filetype plugin on
 filetype plugin indent on  " LaTeX support
@@ -102,13 +107,6 @@ autocmd FileType python set softtabstop=4 "4 пробела в табе
 autocmd FileType python set textwidth=80
 autocmd FileType python set number
 autocmd FileType python set autoindent|set smartindent
-
-"Подсвечиваем все что можно подсвечивать
-autocmd FileType python let python_highlight_all = 1
-autocmd FileType python let b:did_pyflakes_plugin = 0 
-
-" PyLint
-autocmd FileType python compiler pylint
 
 "Delete trailing white space, useful for Python ;)
 func! DeleteTrailingWS()  
@@ -333,7 +331,3 @@ nmap <F2> :BufExplorer<CR>
 let g:Tlist_Ctags_Cmd = ctags_cmd
 let g:Tlist_Inc_Winwidth = 1
 
-"
-" Add bundles support
-"
-call pathogen#infect() 
